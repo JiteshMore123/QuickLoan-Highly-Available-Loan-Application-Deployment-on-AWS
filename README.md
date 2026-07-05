@@ -14,6 +14,9 @@ QuickLoan is a cloud-hosted loan application platform developed using:
 •	Web Server: Nginx 
 
 •	Database: Amazon RDS MySQL 
+
+# Architecture
+![AWS Project Architecture](AWS%20Project%20Architecture.png)
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________
 The project was deployed on AWS using a multi-tier architecture. A custom VPC was designed with public and private subnets across multiple Availability Zones. The application servers were hosted on Amazon EC2, while the database was hosted securely on Amazon RDS in a private subnet.
 
