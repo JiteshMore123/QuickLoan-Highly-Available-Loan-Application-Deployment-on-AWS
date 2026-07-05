@@ -16,7 +16,9 @@ QuickLoan is a cloud-hosted loan application platform developed using:
 •	Database: Amazon RDS MySQL 
 
 # Architecture
+
 ![AWS Project Architecture](AWS%20Project%20Architecture.png)
+
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________
 The project was deployed on AWS using a multi-tier architecture. A custom VPC was designed with public and private subnets across multiple Availability Zones. The application servers were hosted on Amazon EC2, while the database was hosted securely on Amazon RDS in a private subnet.
 
@@ -67,6 +69,9 @@ CloudWatch alarms and SNS notifications were configured for infrastructure monit
 7. **DNS**
 
 - No-IP Dynamic DNS
+
+![Website Screenshot](Screenshots/WebsiteIMG.png)
+![Website Screenshot](Screenshots/WebsiteIMG2.png)
 ___________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Step 1 – Create Networking Components
 **1. Create VPC**
@@ -78,6 +83,8 @@ ________________________________________________________________________________
 Purpose:
 
 - Creates an isolated network for all AWS resources.
+
+![Website Screenshot](Screenshots/VPC.png)
 
 **2. Create Subnets**
 
@@ -104,6 +111,8 @@ Purpose:
 - Public subnets host internet-facing resources.
 - Private subnet hosts database resources.
 
+![Website Screenshot](Screenshots/Subnet.png)
+
 **3. Create Internet Gateway**
 
 >Create IGW
@@ -114,6 +123,8 @@ Purpose:
 
 - Allows internet access to public resources.
 
+![Website Screenshot](Screenshots/IGW.png)
+
 **4. Create NAT Gateway**
 
 >Deploy NAT Gateway **in Public Subnet**
@@ -123,6 +134,8 @@ Purpose:
 Purpose:
 
 - Allows private resources to access internet for updates without exposing them publicly.
+
+![Website Screenshot](Screenshots/NAT.png)
 
 **5. Configure Route Tables**
 
@@ -155,6 +168,8 @@ Purpose:
 
 - Controls traffic flow inside VPC.
 
+![Website Screenshot](Screenshots/RouteTable.png)
+
 # Step 2 – Configure Security Groups
 
 Create:
@@ -184,6 +199,8 @@ Create:
 Purpose:
 
 - Only application servers can access database.
+
+![Website Screenshot](Screenshots/SG.png)
 
 # Step 3 – Launch EC2 Instances
 
@@ -221,6 +238,8 @@ Purpose:
 
 - Used to access private resources.
 
+![Website Screenshot](Screenshots/Instances.png)
+
 # Step 4 – Configure Application Server
 
 Update packages:
@@ -251,6 +270,8 @@ Install PHP:
 
 >systemctl restart nginx
 
+![Website Screenshot](Screenshots/APPServer.png)
+
 # Step 5 – Upload Website Files
 
 Using WinSCP upload: includes, nginx, public
@@ -266,6 +287,8 @@ Set permissions:
 > chown -R nginx:nginx /usr/share/nginx/html/public
 
 >chmod -R 755 /usr/share/nginx/html/public
+
+![Website Screenshot](Screenshots/WINSCP_Transfer.png)
 
 # Step 6 – Create Amazon S3 Bucket
 
@@ -287,6 +310,8 @@ Purpose:
 
 - Stores static images.
 - Reduces EC2 storage usage.
+
+![Website Screenshot](Screenshots/S3.png)
 
 # Step 7 – Update Application Image URLs
 
@@ -339,6 +364,8 @@ Disable:
 
 Launch RDS.
 
+![Website Screenshot](Screenshots/AWSDBCreated.png)
+
 # Step 10 – Create Database Tables
 
 Connect from DB Server:
@@ -372,6 +399,8 @@ Verify:
     SHOW TABLES;
 	DESC applications;
 
+![Database Entries](Screenshots/DataBase%20entries_asw.png)
+
 # Step 11 – Configure Domain
 
 Create hostname using No-IP.
@@ -387,6 +416,8 @@ Application Load Balancer DNS
 Purpose:
 
 - Access application using a friendly URL.
+
+![Website Screenshot](Screenshots/Domain.png)
 
 # Step 12 – Configure Nginx Virtual Host
 
@@ -456,6 +487,8 @@ Purpose:
 
 - Creates reusable application image.
 
+![Website Screenshot](Screenshots/AMI.png)
+
 # Step 15 – Create Launch Template
 
 Use:
@@ -474,6 +507,8 @@ Purpose:
 
 - Standard template for Auto Scaling.
 
+![Website Screenshot](Screenshots/LaunchTem.png)
+
 # Step 16 – Create Target Group
 
 >Type: Instance
@@ -484,6 +519,8 @@ Purpose:
 
 Register application instances.
 
+![Website Screenshot](Screenshots/TG.png)
+
 # Step 17 – Create Application Load Balancer
 
 Configure: Internet Facing Public Subnets with HTTP Listener (80)
@@ -493,6 +530,8 @@ Attach: Target Group
 Purpose:
 
 - Distributes traffic across multiple servers.
+
+![Website Screenshot](Screenshots/LB.png)
 
 # Step 18 – Create Auto Scaling Group
 
@@ -514,6 +553,8 @@ Purpose:
 
 - Automatically adds/removes instances.
 
+![Auto Scaling](Screenshots/Auto%20Scale.png)
+
 # Step 19 – Monitoring
 1. CloudWatch
 
@@ -522,6 +563,8 @@ Create alarms:
 >CPU > 80%
 
 >CPU < 20%
+
+![Auto Scaling](Screenshots/Cloudwatch.png)
 
 2. SNS
 
@@ -532,6 +575,8 @@ Subscribe email.
 Purpose:
 
 - Sends notifications when alarms trigger.
+
+![Auto Scaling](Screenshots/SNS%20AWS.png)
 
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________
 # Architecture Outcome
